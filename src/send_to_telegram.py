@@ -8,7 +8,7 @@ import requests
 
 
 ROOT = Path(__file__).resolve().parent.parent
-IMAGE_PATH = ROOT / "content" / "latest.png"
+IMAGE_PATH = ROOT / "content" / "latest.jpg"
 CAPTION_PATH = ROOT / "content" / "caption.txt"
 
 
@@ -37,7 +37,7 @@ def main() -> int:
             response = requests.post(
                 url,
                 data={"chat_id": chat_id, "caption": caption},
-                files={"photo": (IMAGE_PATH.name, image, "image/png")},
+                files={"photo": (IMAGE_PATH.name, image, "image/jpeg")},
                 timeout=60,
             )
         response.raise_for_status()
