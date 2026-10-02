@@ -6,12 +6,12 @@
 
 ## Структура
 
-- `content/latest.png` — текущая картинка для публикации;
+- `content/latest.jpg` — текущая картинка для публикации;
 - `content/caption.txt` — подпись к картинке;
 - `src/send_to_telegram.py` — независимый слой Telegram-отправки;
 - `archive/` — место для будущих публикаций, например `archive/2026-10-03.png` и `archive/2026-10-03.txt`.
 
-PNG-файл нельзя надёжно создать как placeholder автоматически, поэтому добавьте собственную картинку вручную по адресу `content/latest.png`. После этого workflow сможет отправить её.
+JPG-файл нельзя надёжно создать как placeholder автоматически, поэтому добавьте собственную картинку вручную по адресу `content/latest.jpg`. После этого workflow сможет отправить её.
 
 ## Секреты GitHub
 
@@ -38,7 +38,7 @@ Workflow `Send comic to Telegram` запускается вручную чере
 
 Он также запускается автоматически при изменении в `main` одного из файлов:
 
-- `content/latest.png`;
+- `content/latest.jpg`;
 - `content/caption.txt`.
 
 Каждый запуск устанавливает Python 3.12, ставит `requests` и выполняет `python src/send_to_telegram.py`. Скрипт использует официальный Telegram Bot API `sendPhoto` и multipart upload файла, а не публичную ссылку.
@@ -48,7 +48,7 @@ Workflow `Send comic to Telegram` запускается вручную чере
 Компоненты разделены по ответственности:
 
 ```text
-идея сюжета → генерация изображения → content/latest.png → GitHub Actions → Telegram
+идея сюжета → генерация изображения → content/latest.jpg → GitHub Actions → Telegram
 ```
 
-Позже можно добавить отдельный workflow или скрипт генерации, который будет только создавать `content/latest.png` и не будет знать детали Telegram. Старые изображения и подписи можно сохранять в `archive/`.
+Позже можно добавить отдельный workflow или скрипт генерации, который будет только создавать `content/latest.jpg` и не будет знать детали Telegram. Старые изображения и подписи можно сохранять в `archive/`.
