@@ -6,6 +6,7 @@ on:
     branches:
       - main
     paths:
+      - "content/latest.svg"
       - "content/latest.jpg"
       - "content/caption.txt"
 
