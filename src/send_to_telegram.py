@@ -40,18 +40,21 @@ def main() -> int:
                 files={"photo": (IMAGE_PATH.name, image, "image/jpeg")},
                 timeout=60,
             )
-        response.raise_for_status()
-        result = response.json()
+        try:
+            result = response.json()
+        except ValueError:
+            print(f"Ошибка: Telegram вернул HTTP {response.status_code} и некорректный JSON.", file=sys.stderr)
+            return 1
+
+        if not response.ok or not result.get("ok"):
+            description = result.get("description", "неизвестная ошибка Telegram")
+            print(f"Ошибка Telegram Bot API: {description}", file=sys.stderr)
+            return 1
+
     except requests.RequestException as exc:
-        print(f"Ошибка при отправке изображения в Telegram: {exc}", file=sys.stderr)
-        return 1
-    except ValueError:
-        print("Ошибка: Telegram вернул некорректный ответ.", file=sys.stderr)
+        print(f"Ошибка сети при отправке изображения в Telegram: {exc}", file=sys.stderr)
         return 1
 
-    if not result.get("ok"):
-        print("Ошибка Telegram Bot API: изображение отклонено.", file=sys.stderr)
-        return 1
     print("Комикс успешно отправлен в Telegram.")
     return 0
 
